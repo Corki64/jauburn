@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifier',
-		'arguments'
+		'arguments',
+		'body'
 	],
 	#category : #'Jauburn-AST-Core'
 }
@@ -16,6 +17,11 @@ JbFunctionCallNode >> arguments [
 { #category : #accessing }
 JbFunctionCallNode >> arguments: anObject [
 	arguments := anObject
+]
+
+{ #category : #'as yet unclassified' }
+JbFunctionCallNode >> executeIn: environment [
+	self evaluateIn: environment
 ]
 
 { #category : #accessing }

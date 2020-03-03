@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'body',
 		'parameters',
-		'environment'
+		'environment',
+		'primitives'
 	],
 	#category : #'Jauburn-Interpreter-Core'
 }
@@ -30,7 +31,16 @@ JbFunction >> body: anObject [
 JbFunction >> call: arguments in: callEnvironment [
 	"You need to implement this method!  arguments will contain the arguments to pass to this function and callEnvironment will contain the environment in place when this function was called."
 	
-	self shouldBeImplemented 
+	| newEnvironment |
+	
+	newEnvironment := JbEnvironment
+		newFromKeys: (self parameters collect: [ :each | each identifier ] )
+		andValues: arguments.
+		
+		newEnvironment outerEnvironment: self environment.
+		
+		body do: [ :each | each executeIn: newEnvironment ]
+		
 ]
 
 { #category : #accessing }
